@@ -38,6 +38,7 @@ List<CategoryModel> categoryList = [
   ),
    const CategoryModel(
     title: 'Burger',
+    // ignore: deprecated_member_use
     icon: FontAwesomeIcons.hamburger,
     color: Colors.yellow,
     colorIcon: Color.fromARGB(255, 2, 141, 235),

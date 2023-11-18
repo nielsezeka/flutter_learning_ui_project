@@ -3,7 +3,7 @@ import 'package:ui_flutter/constants.dart';
 import '../model/category_model.dart';
 import '../model/featurestore_model.dart';
 import '../widget/category_widget.dart';
-import 'store_product__screen.dart';
+import 'store_product_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

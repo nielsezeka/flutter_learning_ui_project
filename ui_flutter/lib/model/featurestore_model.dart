@@ -1,5 +1,3 @@
-import 'package:ui_flutter/model/product_model.dart';
-
 class FeaturedStoreModel {
   final String name; // Tên cửa hàng
   final String image; // URL hình ảnh cửa hàng
@@ -15,6 +13,20 @@ class FeaturedStoreModel {
     required this.distance,
     required this.minutesAway,
     required this.products,
+  });
+}
+
+class ProductModel {
+  final String name;
+  final String description;
+  final double price;
+  final String imageUrl;
+
+  ProductModel({
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.imageUrl,
   });
 }
 

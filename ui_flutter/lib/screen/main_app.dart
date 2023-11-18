@@ -28,25 +28,25 @@ class _MainAppState extends State<MainApp> {
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
           leading: Container(
-                width: 50,
-                margin: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Styles.bgColorBlack),
-                ),
-                child: Center(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(5),
-                    onTap: () {
-                      // Xử lý sự kiện khi nhấn vào nút
-                    },
-                    child: const Icon(
-                      Icons.search,
-                      size: 35,
-                    ),
-                  ),
+            width: 50,
+            margin: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Styles.bgColorBlack),
+            ),
+            child: Center(
+              child: InkWell(
+                borderRadius: BorderRadius.circular(5),
+                onTap: () {
+                  // Xử lý sự kiện khi nhấn vào nút
+                },
+                child: const Icon(
+                  Icons.search,
+                  size: 35,
                 ),
               ),
+            ),
+          ),
           iconTheme: const IconThemeData(color: Styles.bgColorBlack // Màu icon
               ),
           elevation: 10,
@@ -77,30 +77,27 @@ class _MainAppState extends State<MainApp> {
               ],
             ),
           ),
-          
           actions: [
-            Builder(builder: (context) {
-              return Container(
-                width: 50,
-                margin: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Styles.bgColorBlack),
-                ),
-                child: Center(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(5),
-                    onTap: () {
-                      // Xử lý sự kiện khi nhấn vào nút
-                    },
-                    child: const Icon(
-                      Icons.notifications,
-                      size: 35,
-                    ),
+            Container(
+              width: 50,
+              margin: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Styles.bgColorBlack),
+              ),
+              child: Center(
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(5),
+                  onTap: () {
+                    // Xử lý sự kiện khi nhấn vào biểu tượng thông báo
+                  },
+                  child: const Icon(
+                    Icons.notifications,
+                    size: 35,
                   ),
                 ),
-              );
-            }),
+              ),
+            ),
           ],
         ),
         body: IndexedStack(
@@ -145,9 +142,7 @@ class _MainAppState extends State<MainApp> {
                 ),
               ],
             ),
-            
           ),
-          
         ),
         // extendBody: true,
       ),

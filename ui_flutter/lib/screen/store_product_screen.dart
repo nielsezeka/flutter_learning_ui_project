@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ui_flutter/widget/appbar_custom.dart';
+import 'package:ui_flutter/widget/product_list.dart';
 import '../constants.dart';
 import '../model/featurestore_model.dart';
 import '../model/product_model.dart';
@@ -168,65 +170,87 @@ class _StoreProductsScreenState extends State<StoreProductsScreen> {
                           height: 15,
                         ),
                         Expanded(
-                          child: ListView.builder(
-                            itemCount: widget.store.products.length,
-                            itemBuilder: (context, index) {
-                              final product = widget.store.products[index];
-                              int quantity = cart[product] ?? 0;
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      cart[product] = quantity + 1;
-                                    });
-                                  },
-                                  child: ListTile(
-                                    leading: Image.asset(
-                                      product.imageUrl,
-                                      width: 60,
-                                      height: 60,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    title: Text(
-                                      product.name,
-                                      style: Styles.title1,
-                                    ),
-                                    subtitle: Row(
-                                      children: [
-                                        Container(
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 90, 240, 85),
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  '\$${product.price.toStringAsFixed(2)}'),
-                                            )),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                            child: Text(product.description)),
-                                      ],
-                                    ),
-                                    trailing: quantity > 0
-                                        ? Text(
-                                            '$quantity',
-                                            style: Styles.title1
-                                                .copyWith(color: Colors.green),
-                                          )
-                                        : const SizedBox.shrink(),
-                                  ),
-                                ),
-                              );
+                          child: FutureBuilder(
+                            future: DefaultAssetBundle.of(context)
+                                .loadString('assets/sample_products.json'),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const CircularProgressIndicator();
+                              } else if (snapshot.hasError) {
+                                return const Text('Error loading data');
+                              }
+
+                              // Check if snapshot.data is not null before using it
+                              List<dynamic> productsData =
+                                  json.decode(snapshot.data ?? '[]');
+                              List<ProductModels> products = productsData
+                                  .map((json) => ProductModels.fromJson(json))
+                                  .toList();
+                              return ProductList(products: products);
                             },
                           ),
                         ),
+                        // Expanded(
+                        //   child: ListView.builder(
+                        //     itemCount: widget.store.products.length,
+                        //     itemBuilder: (context, index) {
+                        //       final product = widget.store.products[index];
+                        //       int quantity = cart[product] ?? 0;
+                        //       return Padding(
+                        //         padding: const EdgeInsets.only(bottom: 10),
+                        //         child: InkWell(
+                        //           onTap: () {
+                        //             setState(() {
+                        //               cart[product] = quantity + 1;
+                        //             });
+                        //           },
+                        //           child: ListTile(
+                        //             leading: Image.asset(
+                        //               product.imageUrl,
+                        //               width: 60,
+                        //               height: 60,
+                        //               fit: BoxFit.cover,
+                        //             ),
+                        //             title: Text(
+                        //               product.name,
+                        //               style: Styles.title1,
+                        //             ),
+                        //             subtitle: Row(
+                        //               children: [
+                        //                 Container(
+                        //                     decoration: BoxDecoration(
+                        //                       color: const Color.fromARGB(
+                        //                           255, 90, 240, 85),
+                        //                       borderRadius:
+                        //                           BorderRadius.circular(15),
+                        //                     ),
+                        //                     child: Padding(
+                        //                       padding:
+                        //                           const EdgeInsets.all(8.0),
+                        //                       child: Text(
+                        //                           '\$${product.price.toStringAsFixed(2)}'),
+                        //                     )),
+                        //                 const SizedBox(
+                        //                   width: 10,
+                        //                 ),
+                        //                 Expanded(
+                        //                     child: Text(product.description)),
+                        //               ],
+                        //             ),
+                        //             trailing: quantity > 0
+                        //                 ? Text(
+                        //                     '$quantity',
+                        //                     style: Styles.title1
+                        //                         .copyWith(color: Colors.green),
+                        //                   )
+                        //                 : const SizedBox.shrink(),
+                        //           ),
+                        //         ),
+                        //       );
+                        //     },
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
